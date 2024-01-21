@@ -1,0 +1,72 @@
+/* .container{
+  height: 100vh;
+} */
+.right-container {
+  /* height: 500rpx; */
+  height: 100vh;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 1rem;
+  margin-left: 50rpx;
+}
+
+.item-name {
+  margin-top: 13rpx;
+  font-size: 0.7rem;
+}
+
+.item-title {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.bottom-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8rem;
+  color: gray;
+  background-color: #f5f2f2;
+  padding: 30rpx 0;
+}
+
+@font-face {
+  font-family: 'my-icon';
+  src: url('./addLine.png');
+}
+
+.my-icon {
+  font-family: 'my-icon';
+}
+
+.my-icon-extra::before {
+  content: '\e626';
+}
+
+.game_card {
+  margin-left: 1.5rem;
+  display: flex;
+}
+
+.game-image {
+  /* display: block; */
+  /* margin-left: 10px; */
+}
+
+.game_size {
+  font-size: 1rem;
+  display: block;
+  color: red;
+}
+
+.game_add_button {
+  /* margin-left: 2.5rem; */
+  position: absolute;
+  right: 6px;
+}
+
+.game_content {
+  margin-left: 4px;
+}

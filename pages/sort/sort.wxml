@@ -1,0 +1,31 @@
+<!--pages/sort/sort.wxml-->
+<van-row>
+	<van-col span="5">
+		<!-- 游戏类型 左侧滚栏 -->
+		<van-sidebar active-key="{{ activeKey }}" bind:change="onChange">
+			<van-sidebar-item
+				wx:for="{{ gameTypes }}"
+				wx:key="index"
+				wx:for-index="index"
+				data-index="{{ index }}"
+				title="{{ item.name }}"
+				bindtap="selectType"
+			/>
+		</van-sidebar>
+	</van-col>
+	<!-- 右侧游戏 -->
+	<van-col span="19" class="container">
+		<scroll-view wx:if="{{ selectData.level !==1 }}" class="right-container" scroll-y="true">
+			<view wx:for="{{ selectData.child }}" wx:for-item="item" data-id="{{ item._id }}" wx:key="index" bindtap="pushToDeatilPage">
+				<view class="game_card">
+					<van-image class="game_image" width="7.5rem" height="5rem" fit="cover" src="{{ item.url }}" />
+					<view class="game_content">
+						<text class="item-title">{{item.name}}</text>
+						<text class="game_size">{{ item.size }}GB</text>
+						<van-button class="game_add_button" type="warning" round size="small" data-gamedata='{{item}}'  bindtap="addInCar">加入游戏篮</van-button>
+					</view>
+				</view>
+			</view>
+		</scroll-view>
+	</van-col>
+</van-row>
