@@ -21,16 +21,16 @@ Page({
   // 获取订单的商品列表信息
   getOrderData(from) {
     let order;
-     
-      order = wx.getStorageSync('checkedGames') || []
-      console.log('确认订单',order)
-    
+
+    order = wx.getStorageSync('checkedGames') || []
+    console.log('确认订单', order)
+
     this.setData({
       totalPrice: Number(order.totalPrice).toFixed([2]),
-      orderData:order.checkedCar,
+      orderData: order.checkedCar,
       createTime: (new Date()).toLocaleString(),
       // createdBy
-      
+
     })
   },
 
@@ -219,61 +219,44 @@ Page({
   // 取消支付,生成未付款订单
   onClose() {
     this.setData({
-      show:false
+      show: false
     })
-    // let order = this.createOrder();
-    // order.state = "1"
-
-    // db.collection('order').add({
-    //   data: order,
-    //   success: res => {
-    //     console.log('成功', res)
-
-    //     // 获取数据库中新建的订单，对购物车进行删减
-    //     db.collection('order').doc(res._id).get({
-    //       success: res => {
-    //         let productList = JSON.parse(res.data.productList)
-    //         console.log('产品订单', productList)
-
-    //         let cart = wx.getStorageSync('userGameCar')
-    //         console.log('购物车缓存', cart)
-
-    //         let newCart = cart.filter((item1) => {
-    //           return (productList.findIndex((item2) => {
-    //             return item1._id == item2._id
-    //           }) == -1)
-    //         })
-
-    //         wx.setStorageSync('userGameCar', newCart)
-    //         console.log('新购物车', newCart)
-    //       }
-    //     })
-
-    //     wx.navigateTo({
-    //       url: './orderDetail?id=' + res._id,
-    //     })
-    //   },
-    //   fail: res => {
-    //     console.log('失败', res)
-
-    //   }
-    // })
-    // console.log('订单', order)
   },
+
+  setCustomSelfOrder(newOrder) {
+    if (wx.getStorageSync('selfOrders')) {
+      wx.setStorageSync('selfOrders', [...wx.getStorageSync('selfOrders'), newOrder])
+    } else {
+      wx.setStorageSync('selfOrders', [newOrder])
+    }
+  },
+
+  addZero(num) {
+    var digit = num.toString().length; // 获取数字的位数
+    
+    if (digit === 1) {
+        return "000" + num; // 如果只有一位数，则在前面添加一个 0
+    } else if (digit > 2 && digit < 5) {
+        return num.toLocaleString('en-US', {minimumIntegerDigits: digit}); // 其他情况下直接返回原始数值并保持不变
+    } else {
+        throw new Error("Invalid input"); // 输入无效时抛出错误
+    }
+},
 
   // 完成支付点击事件
   clickComfire() {
     let order = this.createOrder();
     order.state = "2"
-    db.collection('game_orders').get().then(res=>{
-      order.orderId = `X${res.data.length+1}`
+    db.collection('game_orders').get().then(res => {
+      // 这里拿到的res.data就不是全部的数据
+      console.log('生成0>>>>', this.addZero(res.data.length + 1)) 
+      order.orderId = `X${res.data.length + 1}`
       console.log('add的order_massage', order)
       console.log('game_orders>>>>', res.data.length)
       db.collection('game_orders').add({
         data: order,
         success: res => {
-          // console.log('往gameorders中新加订单成功>>>', order, res)
-          
+          this.setCustomSelfOrder(order)
           // 新购物车
           const array1 = wx.getStorageSync('userGameCar')
           const array2 = wx.getStorageSync('checkedGames').checkedCar
@@ -282,7 +265,7 @@ Page({
           // 把购物车中对应的已经生成订单的游戏删掉
           wx.setStorageSync('userGameCar', newCar)
           // 把选中的游戏删掉
-          wx.setStorageSync('checkedGames', {checkedCar:[], totalPrice:''})
+          wx.setStorageSync('checkedGames', { checkedCar: [], totalPrice: '' })
           // 获取数据库中新建的订单，对购物车进行删减
           // 跳去订单页
           wx.navigateTo({
@@ -291,7 +274,7 @@ Page({
         },
         fail: res => {
           console.log('失败', res)
-  
+
         }
       })
     })

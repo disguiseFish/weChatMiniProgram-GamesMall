@@ -1,7 +1,6 @@
 // pages/sort/sort.js
 
 const db = wx.cloud.database();
-const game_category = db.collection('game_types')
 const goods_info = db.collection('goods_info')
 
 Page({
@@ -46,37 +45,6 @@ Page({
       }
     })
   },
-
-  //获取分类信息  
-  // async getSortData() {
-
-  //   let res = await game_category.get()
-  //   console.log('获取的信息', res)
-  //   this.setData({
-  //     gameTypes: res
-  //   })
-  //   console.log(this.data.gameTypes)
-  //   let sale = await goods_info.orderBy('sales_volume', 'desc').limit(15).get()
-
-  //   console.log(sale.data[0])
-  //   for (let i = 0; i < sale.data.length; i++) {
-  //     this.data.gameTypes[0].child.push(sale.data[i])
-  //   }
-
-  //   // let newGoods = await goods_info.where({
-  //   //   is_NewProducts: true
-  //   // }).orderBy('_createTime', 'desc').limit(15).get()
-  //   // console.log('新品', newGoods)
-  //   // for (let j = 0; j < newGoods.data.length; j++) {
-  //   //   this.data.gameTypes[1].child.push(newGoods.data[j])
-  //   // }
-
-  //   // this.setData({
-  //   //   gameTypes: this.data.gameTypes,
-  //   //   selectData: this.data.gameTypes[0]
-  //   // })
-  //   // console.log('热销', this.data.gameTypes)
-  // },
 
   /**
    * 点击游戏分类

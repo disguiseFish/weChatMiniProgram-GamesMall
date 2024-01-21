@@ -42,30 +42,24 @@ Page({
     this.getOrderList()
   },
   onUnload: function () {
-    console.log("页面被关闭");
+    // 页面被关闭
     wx.switchTab({
-      url:'/pages/my/my'
+      url: '/pages/my/my'
     })
     // 这里可以进行其他操作，比如保存数据、清除定时器等
   },
-  // onReachBottom: function () {
-  //   this.setData({
-  //     page: ++this.data.page
-  //   })
-  //   this.getOrderList(this.data.tabIndex)
-  // },
 
-  // // 将订单的商品列表从json转化成对象
-  // getProductList(list) {
-  //   for (let i in list) {
-  //     list[i].productList = JSON.parse(list[i].productList)
-  //   }
-  // },
+  changeInput(e) {
+    console.log('e', e.detail)
+    if (e.detail === "xxsz") {
+      this.getAllOrders()
+    } else {
+      this.getOrderList()
+    }
+  },
 
-  // 通过用户的openid以及订单状态获取订单列表数据
-  getOrderList() {
-
-    // console.log('tab参数', state)
+  // 获取所有订单
+  getAllOrders() {
     if (!this.data.hasMoreData) {
       return;
     }
@@ -73,104 +67,32 @@ Page({
       message: '加载中...',
       forbidClick: true,
     });
-
-    // const LIMIT = 5
-    // let { page, orderList } = this.data
-    // console.log('wx.getStorageSyn', wx.getStorageSync('storage_user_info').openid)
-    // db.collection('game_orders').where({
-    //   openId: wx.getStorageSync('storage_user_info').openid
-    // }).get()
-    wx.cloud.callFunction({
-      name: 'getOrders',
-      data: {},
-      success: (res) => {
-        console.log('获取所有订单11>>>', res.result.res.data)
-        // wx.getStorageSync('storage_user_info')
-        // this.setData({
-        //   gameTypes: res.result.res.data,
-        //   selectData: res.result.res.data[0]
-        // })
-        // this.fetchGames(res.result.res.data)
-      },
-      fail: (error) => {
-        console.log('获取到失败', error)
-      }
-    })
-
     db.collection('game_orders').get()
       .then(res => {
-        // console.log('获取的数据', res.data)
-        // let newlist = res.data.map(item=>{
-        //   return {
-        //     ...item,
-        //     productList: JSON.parse(item.productList)
-        //   }
-        // })
         console.log('获取game_orders的数据', res.data)
         this.setData({
           orderList: res.data.reverse()
         })
-        // user = res.data[0]
       })
-    // wx.cloud.callFunction({
-    //   name: 'getOpenid',
-    //   success: res => {
-    //     let openid = res.result.openid
-    //     if (state == 0) {
-    //       orderDB.where({
-    //         openId: openid
-    //       }).limit(LIMIT).skip(LIMIT * page).orderBy('created', 'desc').get().then(res => {
-    //         console.log('全部订单列表', res)
+  },
 
-    //         this.getProductList(res.data)
-    //         if (page == 0) {
-    //           this.setData({
-    //             orderList: res.data
-    //           })
-    //         } else {
-    //           this.setData({
-    //             orderList: [...orderList, ...res.data]
-    //           })
-    //         }
-    //         if (res.data.length == 0) {
-    //           this.setData({
-    //             hasMoreData: false
-    //           })
-    //           return
-    //         }
-    //         Toast.clear();
-
-    //       })
-    //     } else {
-    //       orderDB.where({
-    //         openId: openid,
-    //         state: state
-    //       }).limit(LIMIT).skip(LIMIT * page).orderBy('created', 'desc').get().then(res => {
-    //         console.log('分类订单列表', res)
-
-    //         this.getProductList(res.data)
-    //         if (page == 0) {
-    //           this.setData({
-    //             orderList: res.data
-    //           })
-    //         } else {
-    //           this.setData({
-    //             orderList: [...orderList, ...res.data]
-    //           })
-    //         }
-    //         if (res.data.length == 0) {
-    //           this.setData({
-    //             hasMoreData: false
-    //           })
-    //           return
-    //         }
-    //         Toast.clear();
-
-    //       })
-    //     }
-
-    //   }
-    // })
+  //  用户获取自己的订单
+  getOrderList() {
+    // wx.getStorageSync('selfOrders')
+    if (!this.data.hasMoreData) {
+      return;
+    }
+    // Toast.loading({
+    //   message: '加载中...',
+    //   forbidClick: true,
+    // });
+    this.setData({
+      orderList: wx.getStorageSync('selfOrders').reverse()
+    })
+    //   db.collection('game_orders').get()
+    //     .then(res => {
+    //       // console.log('获取game_orders的数据', res.data)
+    //     })
   },
 
   // 切换标签页点击事件
@@ -194,7 +116,6 @@ Page({
   },
 
   copyOrder(event) {
-    console.log('event>>>', event.target.dataset.id)
     wx.setClipboardData({
       data: event.target.dataset.id,
       success: function (res) {
@@ -212,12 +133,6 @@ Page({
       id: id
     })
 
-    // let imageData=[];
-    // for(let i in image){
-    //   if(i<=2){
-    //     imageData.push(image[i].color_image)
-    //   }
-    // }
     this.setData({
       imageList: image
     })
@@ -225,12 +140,8 @@ Page({
     this.setData({
       showReceipt: true
     })
-
-    console.log('图片列表', this.data.imageList)
-
-
-
   },
+
   // 关闭确认收货面板点击事件
   closeReceipt() {
     console.log('关闭了面板')
@@ -240,34 +151,6 @@ Page({
     })
   },
 
-
-  // 查看物流点击事件
-  clickLogistics(event) {
-    console.log('查看物流', event)
-    wx.navigateTo({
-      url: './logistics?id=' + event.currentTarget.dataset.id,
-    })
-  },
-
-  // 打开付款面板
-  // openPayment(event) {
-  //   let id = event.currentTarget.dataset.id
-  //   this.setData({
-  //     id: id
-  //   })
-  //   orderDB.doc(id).get().then(res => {
-  //     console.log('付款', res)
-  //     this.setData({
-  //       totalPrice: res.data.totalPrice
-  //     })
-  //   })
-
-
-  //   this.setData({
-  //     showPayment: true
-  //   })
-  // },
-
   // 关闭付款面板
   onClose() {
     // this.setData({
@@ -275,25 +158,4 @@ Page({
     //   id: 0
     // })
   },
-
-  // 完成支付点击事件
-  // clickComfire() {
-  //   let { id } = this.data
-  //   orderDB.doc(id).update({
-  //     data: {
-  //       state: "2"
-  //     },
-  //     success: res => {
-  //       this.setData({
-  //         page: 0,
-  //         hasMoreData: true
-  //       })
-  //       this.getOrderList(this.data.tabIndex)
-  //       Toast.success('支付成功');
-  //       this.setData({
-  //         showPayment: false
-  //       })
-  //     }
-  //   })
-  // }
 })

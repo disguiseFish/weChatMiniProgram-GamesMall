@@ -1,6 +1,11 @@
 /* .container{
   height: 100vh;
 } */
+/* 修改游戏类型字体样式 */
+.van-sidebar-item__text {
+   font-size: 12px;
+   font-weight: 800;
+}
 .right-container {
   /* height: 500rpx; */
   height: 100vh;
@@ -19,7 +24,7 @@
 
 .item-title {
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.7rem;
 }
 
 .bottom-container {
@@ -48,25 +53,23 @@
 .game_card {
   margin-left: 1.5rem;
   display: flex;
-}
-
-.game-image {
-  /* display: block; */
-  /* margin-left: 10px; */
+  padding-top: 5px;
 }
 
 .game_size {
-  font-size: 1rem;
+  font-size: 0.6rem;
   display: block;
   color: red;
 }
 
-.game_add_button {
-  /* margin-left: 2.5rem; */
-  position: absolute;
-  right: 6px;
+.game_content {
+  position: relative;
+  margin-left: 4px;
+  width: 100%;
 }
 
-.game_content {
-  margin-left: 4px;
+.game_add_button {
+  position: absolute;
+  right: 6px;
+  bottom: 7px;
 }

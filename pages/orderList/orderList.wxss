@@ -2,6 +2,14 @@ page{
   background-color: #f5f5f5;
 }
 
+.order-anhao {
+  /* margin-top: 10px; */
+}
+
+.van-cell{
+  margin-top: 10px;
+}
+
 /* 顶部标签选择 */
 .tabs-container{
   top: 0;

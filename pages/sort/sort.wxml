@@ -20,9 +20,9 @@
 				<view class="game_card">
 					<van-image class="game_image" width="7.5rem" height="5rem" fit="cover" src="{{ item.url }}" />
 					<view class="game_content">
-						<text class="item-title">{{item.name}}</text>
-						<text class="game_size">{{ item.size }}GB</text>
-						<van-button class="game_add_button" type="warning" round size="small" data-gamedata='{{item}}'  bindtap="addInCar">加入游戏篮</van-button>
+						<text class="item-title">{{item.name}}<text class="game_size">{{ item.size }}GB</text></text>
+						
+						<van-button class="game_add_button" type="warning" round size="mini" data-gamedata='{{item}}'  bindtap="addInCar">加入</van-button>
 					</view>
 				</view>
 			</view>
