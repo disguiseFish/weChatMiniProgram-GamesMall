@@ -9,6 +9,7 @@
 .right-container {
   /* height: 500rpx; */
   height: 100vh;
+  padding-bottom: 60px;
 }
 
 .title {
@@ -69,6 +70,7 @@
 }
 
 .game_add_button {
+  background-color: #fff;
   position: absolute;
   right: 6px;
   bottom: 7px;

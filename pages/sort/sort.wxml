@@ -1,4 +1,7 @@
 <!--pages/sort/sort.wxml-->
+<van-cell-group inset class="order-anhao">
+  <van-field  bind:change="changeInput" value="{{ value }}" v-model="value" label="搜索" placeholder="可以搜索游戏名称哦" />
+</van-cell-group>
 <van-row>
 	<van-col span="5">
 		<!-- 游戏类型 左侧滚栏 -->
@@ -21,8 +24,8 @@
 					<van-image class="game_image" width="7.5rem" height="5rem" fit="cover" src="{{ item.url }}" />
 					<view class="game_content">
 						<text class="item-title">{{item.name}}<text class="game_size">{{ item.size }}GB</text></text>
-						
-						<van-button class="game_add_button" type="warning" round size="mini" data-gamedata='{{item}}'  bindtap="addInCar">加入</van-button>
+						<!-- color="#808A87" -->
+						<van-button  class="game_add_button" type="warning" round size="mini" data-gamedata='{{item}}'  bindtap="addInCar">加入</van-button>
 					</view>
 				</view>
 			</view>

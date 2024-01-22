@@ -26,6 +26,10 @@ Page({
 
   },
 
+  changeInput(e){
+    console.log('e', e.detail)
+  },
+
   //获取分类信息 
   getCatagory() {
     wx.cloud.callFunction({
