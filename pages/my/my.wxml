@@ -38,6 +38,9 @@
       <van-icon name="arrow" />
     </view>
   </view>
+  <!-- <view class="container1">
+
+</view> -->
   <!-- 订单tab -->
   <!-- <view class="order-tab">
     <view class="tab">

@@ -7,6 +7,14 @@
   background-size: 100%
 }
 
+.container1{
+  display: flex;
+  flex-direction: row;
+  height: 600rpx;
+  width: 100%;
+  background-image: url("http://m.qpic.cn/psc?/V1181GcL3XzDpb/ruAMsa53pVQWN7FLK88i5gy.xtuFm19T1OCcZSTTpxwN4SRj7GZDftj3CbZeTske7oXZxnfDLQ0Vo7D0THVbHS8ATE5rTI4LtFGA7f2ZFfI!/b&bo=sAGjAbABowEBByA!&rf=viewer_4");
+  background-size: 100%
+}
 .avatar-container {
   display: flex;
   justify-content: center;

@@ -52,17 +52,16 @@
   </view>
 </view> -->
 
+<view class="container">
+
+</view>
 
 <!-- 商品列表 -->
 <view class="like-tip">
-
-  1选游戏的容量注意别太满，留一点空间给硬盘运行较好， 选游戏时注意自己电脑配置
-
-500G=465G 建议装440G以下，1T=930G 建议装900G以下， 2T建议装1.8T以下，4T建议装3.6T以下，以此类推    ^-^
-
-2，如果有什么想玩的游戏找不到，可以联系QQ 1085549206
-  ，如果游戏运行时因为电脑系统有缺失弹出窗口，不会处理的可联系QQ 1085549206  几分钟帮你把电脑搞定
-
+1.选游戏的容量注意别太满，留一点空间给硬盘运行较好， 选游戏时注意自己电脑配置500G=465G 建议装440G以下，1T=930G 建议装900G以下， 2T建议装1.8T以下，4T建议装3.6T以下，以此类推    ^-^
+ </view>
+ <view class="like-tip">
+2.如果有什么想玩的游戏找不到，可以联系QQ 1085549206，如果游戏运行时因为电脑系统有缺失弹出窗口，不会处理的可联系QQ 1085549206  几分钟帮你把电脑搞定
  </view>
 <!-- <van-row custom-class="row-container" gutter="10">
   <van-col span="12" wx:for="{{ goodsList }}" wx:for-item="item" wx:key="index" custom-class="col" data-id="{{item._id}}" bindtap="pushToDetail">
