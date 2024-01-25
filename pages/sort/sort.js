@@ -1,6 +1,7 @@
 // pages/sort/sort.js
 
 const db = wx.cloud.database();
+import Toast from '../../miniprogram_npm/@vant/weapp/toast/toast.js';
 const goods_info = db.collection('goods_info')
 
 Page({
@@ -32,11 +33,16 @@ Page({
 
   //获取分类信息 
   getCatagory() {
+      Toast.loading({
+      message: '加载中...',
+      // forbidClick: true,
+    });
     wx.cloud.callFunction({
       name: 'getTypes',
       data: {},
       success: (res) => {
         console.log('获取游戏分类1', res.result.res.data)
+        Toast.clear();
         // wx.getStorageSync('storage_user_info')
         this.setData({
           gameTypes: res.result.res.data,
@@ -45,6 +51,7 @@ Page({
         // this.fetchGames(res.result.res.data)
       },
       fail: (error) => {
+        Toast.clear();
         console.log('获取到失败', error)
       }
     })

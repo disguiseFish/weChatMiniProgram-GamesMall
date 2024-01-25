@@ -6,6 +6,7 @@ const _ = db.command
 
 Page({
   data: {
+    isAll: false,
     isEmpty: true,
     isLoading: true,
     tabIndex: 0,
@@ -70,7 +71,9 @@ Page({
     db.collection('game_orders').get()
       .then(res => {
         console.log('获取game_orders的数据', res.data)
+      
         this.setData({
+          isAll:true,
           orderList: res.data.reverse()
         })
       })
@@ -87,7 +90,8 @@ Page({
     //   forbidClick: true,
     // });
     this.setData({
-      orderList: wx.getStorageSync('selfOrders').reverse()
+      orderList: wx.getStorageSync('selfOrders').reverse(),
+      isAll: false
     })
     //   db.collection('game_orders').get()
     //     .then(res => {

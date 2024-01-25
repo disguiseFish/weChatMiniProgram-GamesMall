@@ -31,7 +31,7 @@
             <van-card desc="{{item.size}}GB" title="{{item.name}}" thumb="{{ item.url }}" custom-class="card-root" thumb-class="thumb-box" title-class="item.title">
             </van-card>
             <view class="card-stepper">
-              <van-stepper value="{{ item.number}}" disable-input="true" data-index="{{index}}" bind:change="setStepper" id="stepper"/>
+              <!-- <van-stepper value="{{ item.number}}" disable-input="true" data-index="{{index}}" bind:change="setStepper" id="stepper"/> -->
             </view>
           </view>
         </view>

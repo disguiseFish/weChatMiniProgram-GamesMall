@@ -78,10 +78,10 @@ Page({
 
 
     } else {
-      Toast.loading({
-        message: '加载中...',
-        forbidClick: true,
-      });
+      // Toast.loading({
+      //   message: '加载中...',
+      //   forbidClick: true,
+      // });
       this.setData({ isEmpty: false })
 
       // for (let i in cart) {
@@ -427,10 +427,10 @@ Page({
 
   // 勾选购物车列表
   onChange(event) {
-    Toast.loading({
-      message: '加载中...',
-      forbidClick: true,
-    });
+    // Toast.loading({
+    //   message: '加载中...',
+    //   forbidClick: true,
+    // });
     let eventData = event.currentTarget.dataset;
     let index = eventData.index
     let { cartData } = this.data
@@ -449,10 +449,10 @@ Page({
 
   // 全选按钮
   selectAll() {
-    Toast.loading({
-      message: '加载中...',
-      forbidClick: true,
-    });
+    // Toast.loading({
+    //   message: '加载中...',
+    //   forbidClick: true,
+    // });
     let { isSelectAll, cartData } = this.data
     for (let i in cartData) {
       cartData[i].selected = !isSelectAll
@@ -483,10 +483,10 @@ Page({
   // 步进器处理
   setStepper(event) {
     // Toast.loading({ forbidClick: true });
-    Toast.loading({
-      message: '加载中...',
-      forbidClick: true,
-    });
+    // Toast.loading({
+    //   message: '加载中...',
+    //   forbidClick: true,
+    // });
     console.log('事件', event)
     let number = event.detail
     let index = event.currentTarget.dataset.index

@@ -14,7 +14,8 @@
       <!-- <van-image class="game_image" width="7.5rem" height="5rem" fit="cover" src="{{ product.url }}" /> -->
       <view class="order-info">
         <text class="order-title">{{product.name}}</text>
-        <text class="order-desc">-----</text>
+        <text wx:if="{{isAll}}" class="order-desc">{{product._id}}</text>
+        <text wx:else class="order-desc">-----</text>
       </view>
       <view class="order-status">
         <text class="order-package">x{{product.number}}</text>

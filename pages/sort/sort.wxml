@@ -32,3 +32,5 @@
 		</scroll-view>
 	</van-col>
 </van-row>
+
+<van-toast id="van-toast" />
