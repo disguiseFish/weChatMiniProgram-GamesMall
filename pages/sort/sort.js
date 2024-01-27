@@ -28,7 +28,14 @@ Page({
   },
 
   changeInput(e){
-    console.log('e', e.detail)
+    const inputValue = e.detail
+    console.log('inputValue>>',inputValue)
+    if(inputValue.length === 0) {
+      // 什么都没输入
+
+    } else {
+
+    }
   },
 
   //获取分类信息 
@@ -41,14 +48,24 @@ Page({
       name: 'getTypes',
       data: {},
       success: (res) => {
-        console.log('获取游戏分类1', res.result.res.data)
-        Toast.clear();
-        // wx.getStorageSync('storage_user_info')
-        this.setData({
-          gameTypes: res.result.res.data,
-          selectData: res.result.res.data[0]
+        const allTypeGames = res.result.res.data
+        console.log('获取游戏分类1', allTypeGames)
+        let allGames = []
+        allTypeGames.forEach(element => {
+          allGames = allGames.concat(element.child)
+        });
+        let somelist = []
+        allGames.forEach(el=>{
+          if(!somelist.some(e=>e._id ==el._id)){
+            somelist.push(el)
+          }
         })
-        // this.fetchGames(res.result.res.data)
+        console.log('all', allGames, somelist)
+        Toast.clear();
+        this.setData({
+          gameTypes: allTypeGames,
+          selectData: allTypeGames[0] //默认展示第0项
+        })
       },
       fail: (error) => {
         Toast.clear();

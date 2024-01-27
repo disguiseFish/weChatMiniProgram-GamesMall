@@ -31,19 +31,19 @@ Page({
     // this.getUserInfo()
   },
 
-  addUser(userData){
-    console.log('userData>>>', userData)
-    wx.cloud.callFunction({
-      name: 'newUser',
-      data: userData,
-      success: () => {
-        wx.showToast({ title: '授权成功', icon: 'none' });
-      },
-      fail: (error) => {
-        wx.showToast({ title: '授权失败', icon: 'none' });
-      }
-    })
-  },
+  // addUser(userData){
+  //   console.log('userData>>>', userData)
+  //   wx.cloud.callFunction({
+  //     name: 'newUser',
+  //     data: userData,
+  //     success: () => {
+  //       wx.showToast({ title: '授权成功', icon: 'none' });
+  //     },
+  //     fail: (error) => {
+  //       wx.showToast({ title: '授权失败', icon: 'none' });
+  //     }
+  //   })
+  // },
 
   getLogin() {
     // wx.login({
