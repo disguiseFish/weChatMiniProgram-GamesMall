@@ -30,19 +30,20 @@ Page({
   },
 
   changeInput(e){
-    const inputValue = e.detail
+    const inputValue = e.detail.trim()
     console.log('inputValue>>',inputValue,this.data.afterFieldList)
     if(inputValue.length === 0) {
       // 什么都没输入
       this.setData({
-        selectData: this.data.gameTypes[this.data.selectGameTypeIndex],
+        selectData: this.data.gameTypes[0],
       })
     } else {
+       console.log('输入了————筛选', inputValue)
       let list = this.data.afterFieldList.filter(item=>{
         return item.name.includes(inputValue)
       })
       this.setData({
-        selectData: list,
+        selectData: {_id:'0', name: '全部', child: list},
       })
       console.log(list)
     }
@@ -70,12 +71,13 @@ Page({
             afterFieldList.push(el)
           }
         })
-        console.log('all', allGames, afterFieldList)
+        console.log('all', allTypeGames)
+        // allTypeGames.unshift({_id:'0', name: '全部', child:afterFieldList })
         Toast.clear();
         this.setData({
           gameTypes: allTypeGames,
           afterFieldList: afterFieldList,
-          selectData: allTypeGames[this.data.selectGameTypeIndex] //默认展示第0项
+          selectData: allTypeGames[0] //默认展示第0项
         })
       },
       fail: (error) => {
@@ -93,6 +95,7 @@ Page({
     let eventData = event.currentTarget.dataset;
     let index = eventData.index;
     let { gameTypes } = this.data;
+    console.log(gameTypes[index])
     this.setData({
       selectData: gameTypes[index],
       selectGameTypeIndex: index
