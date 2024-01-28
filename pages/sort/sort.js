@@ -11,9 +11,11 @@ Page({
    */
   data: {
     activeKey: 0,
+    afterFieldList:[],
     gameTypes: [],
     firstSort: [],
     selectData: {},
+    selectGameTypeIndex: 0,
     selectName: '',
     isShow: false,
   },
@@ -29,12 +31,20 @@ Page({
 
   changeInput(e){
     const inputValue = e.detail
-    console.log('inputValue>>',inputValue)
+    console.log('inputValue>>',inputValue,this.data.afterFieldList)
     if(inputValue.length === 0) {
       // 什么都没输入
-
+      this.setData({
+        selectData: this.data.gameTypes[this.data.selectGameTypeIndex],
+      })
     } else {
-
+      let list = this.data.afterFieldList.filter(item=>{
+        return item.name.includes(inputValue)
+      })
+      this.setData({
+        selectData: list,
+      })
+      console.log(list)
     }
   },
 
@@ -54,17 +64,18 @@ Page({
         allTypeGames.forEach(element => {
           allGames = allGames.concat(element.child)
         });
-        let somelist = []
+        let afterFieldList = []
         allGames.forEach(el=>{
-          if(!somelist.some(e=>e._id ==el._id)){
-            somelist.push(el)
+          if(!afterFieldList.some(e=>e._id ==el._id)){
+            afterFieldList.push(el)
           }
         })
-        console.log('all', allGames, somelist)
+        console.log('all', allGames, afterFieldList)
         Toast.clear();
         this.setData({
           gameTypes: allTypeGames,
-          selectData: allTypeGames[0] //默认展示第0项
+          afterFieldList: afterFieldList,
+          selectData: allTypeGames[this.data.selectGameTypeIndex] //默认展示第0项
         })
       },
       fail: (error) => {
@@ -83,9 +94,9 @@ Page({
     let index = eventData.index;
     let { gameTypes } = this.data;
     this.setData({
-      selectData: gameTypes[index]
+      selectData: gameTypes[index],
+      selectGameTypeIndex: index
     })
-
     console.log('点击的分类', this.data.selectData)
   },
 
