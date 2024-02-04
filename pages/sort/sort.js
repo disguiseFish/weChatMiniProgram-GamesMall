@@ -142,7 +142,8 @@ Page({
           console.log('加入重复的游戏')
           newCar = localCarData.map(item => {
             if (item._id === addItem._id) {
-              item['number'] = item['number'] + 1
+              // item['number'] = item['number'] + 1
+              item['number'] = 1
             }
             return item
           })

@@ -36,6 +36,7 @@
       <view wx:if="{{item.state == 4}}" class="close-tip">交易完成</view>
       <view wx:if="{{item.state == 5}}" class="close-tip">交易关闭</view> -->
     </view>
+     <view wx:if="{{isAll}}" >备注：{{item.message}}</view>
   </view>
 </scroll-view>
 
