@@ -59,6 +59,14 @@ Page({
     }
   },
 
+  compare(property) {
+    return function (a, b) {
+      var value1 = a[property];
+      var value2 = b[property];
+      return value1 - value2;
+    }
+  },
+
   // 获取所有订单
   getAllOrders() {
     if (!this.data.hasMoreData) {
@@ -71,7 +79,10 @@ Page({
     db.collection('game_orders').get()
       .then(res => {
         console.log('获取game_orders的数据', res.data)
-      
+        res.data.map(item=>{
+          item.productList.sort(this.compare("_id"))
+        })
+        console.log('lis>>>>', res.data)
         this.setData({
           isAll:true,
           orderList: res?.data?.reverse()

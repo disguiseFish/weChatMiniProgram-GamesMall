@@ -19,7 +19,7 @@
       </view>
       <view class="order-status">
         <text class="order-package">x{{product.number}}</text>
-        <text class="order-package">容量：{{product.size}}</text>
+        <text class="order-package">{{product.size}}GB</text>
         <!-- <text class="order-state" wx:if="{{item.state == 1}}">待付款</text>
         <text class="order-state" wx:if="{{item.state == 2}}">待发货</text>
         <text class="order-state" wx:if="{{item.state == 3}}">待收货</text>
@@ -29,7 +29,7 @@
     </view>
        <view class="order-header">
       <view>{{item.created}}</view>
-      <view>包含 {{item.productList.length}} 款游戏，总游戏容量:{{item.totalVolum}}GB</view>
+      <view>包含 {{item.productList.length}} 款游戏，总容量:{{item.totalVolum}}GB</view>
       <!-- <view wx:if="{{item.state == 1}}" class="close-tip">尚未付款</view>
       <view wx:if="{{item.state == 2}}" class="close-tip">等待发货</view>
       <view wx:if="{{item.state == 3}}" class="close-tip">等待收货</view>
