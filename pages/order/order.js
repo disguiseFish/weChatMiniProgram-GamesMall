@@ -233,10 +233,11 @@ Page({
 
   addZero(num) {
     var digit = num.toString().length; // 获取数字的位数
+    console.log('获取数字的位数', digit, num)
     
     if (digit === 1) {
         return "000" + num; // 如果只有一位数，则在前面添加一个 0
-    } else if (digit > 2 && digit < 5) {
+    } else if (digit > 1 && digit < 5) {
         return num.toLocaleString('en-US', {minimumIntegerDigits: digit}); // 其他情况下直接返回原始数值并保持不变
     } else {
         throw new Error("Invalid input"); // 输入无效时抛出错误
@@ -251,6 +252,7 @@ Page({
       // 这里拿到的res.data就不是全部的数据
       // console.log('生成0>>>>', this.addZero(res.data.length + 1)) 
       order.orderId = `X${this.addZero(res.data.length + 1)}`
+      console.log('order>>>', order)
       // console.log('add的order_massage', order)
       // console.log('game_orders>>>>', res.data.length)
       db.collection('game_orders').add({

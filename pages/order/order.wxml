@@ -1,36 +1,10 @@
 <!-- 顶部配送提示 -->
-<!-- <view class="express-container">
-  <view class="express-tip">配送方式</view>
-  <view>商家配送</view>
-</view> -->
-
-<view class="choose-address">
-  <!-- 无收货地址布局 -->
-  <!-- <van-cell title="请先添加收货地址" icon="location-o" is-link url="/pages/address/address?from=order" wx:if="{{ !hasAddress }}" /> -->
-
-
-  <!-- 已选中收货地址布局 -->
-  <!-- <view wx:else class="address-container" bindtap="pushToSelectAddress">
-    <view class="address-left">
-      <van-icon name="location-o" />
-    </view>
-    <view class="address-mid">
-      <view class="mid-top">{{select_address.name}} {{select_address.mobile}}</view>
-      <view class="mid-bottom">
-        {{select_address.city}} {{select_address.street}}
-      </view>
-    </view>
-    <view class="address-right">
-      <van-icon name="arrow" />
-    </view>
-  </view> -->
-</view>
 
 <!-- 商品列表 -->
 <!-- <van-cell title="购物清单" icon="description" custom-class="goodsList-line" /> -->
 <view class="goodsList">
   <view class="goodsList-item" wx:for="{{orderData}}" wx:key="index">
-    <van-card num="{{item.number}}"  desc="{{item.size}}" title="{{item.name}}" thumb="{{ item.url}}" price-class="item-price" title-class="item.title">
+    <van-card num="{{item.number}}"  desc="{{item.size}}G" title="{{item.name}}" thumb="{{ item.url}}" price-class="item-price" title-class="item.title">
     </van-card>
   </view>
 </view>
@@ -42,10 +16,6 @@
     <view>合计游戏容量</view>
     <view>{{totalPrice}}GB</view>
   </view>
-  <!-- <view class="info-item">
-    <view>运费</view>
-    <view>￥0.00</view>
-  </view> -->
 </view>
 <view class="bottom-container"></view>
 
@@ -53,8 +23,6 @@
 
 <!-- 提交订单栏 -->
 <view class="cart-footer">
-  <!-- <view>实付:￥{{totalPrice}}</view> -->
-
   <view class="submit-btn" bindtap="showPopup">
     <text>创建游戏清单</text>
   </view>
@@ -64,9 +32,6 @@
 <van-popup show="{{ show }}" bind:close="onClose" closeable round close-on-click-overlay="{{false}}">
   <view class="popup-container">
     <view class="popup-title">是否确定创建游戏清单？</view>
-    <!-- <view class="popup-desc">清单编号：{{orderId}}</view> -->
-    <!-- <view class="popup-desc">下单时间：{{orderData.createTime}}</view> -->
-    <!-- <view class="popup-desc">容量：{{orderData.totalPrice}}</view> -->
     <view class="btns-container">
       <view class="popup-btn cancel-btn" bindtap="onClose">取消</view>
       <view class="popup-btn comfire-btn" bindtap="clickComfire">确定创建</view>
