@@ -247,17 +247,20 @@ Page({
   // 完成支付点击事件
   clickComfire() {
     let order = this.createOrder();
-    order.state = "2"
-    db.collection('game_orders').get().then(res => {
+    // order.state = "2"
+    // db.collection('game_orders').count().then(res=>{
+    //   console.log(res.total)
+    // })
+    db.collection('game_orders').count().then(res => {
       // 这里拿到的res.data就不是全部的数据
-      // console.log('生成0>>>>', this.addZero(res.data.length + 1)) 
-      order.orderId = `X${this.addZero(res.data.length + 1)}`
+      console.log('生成订单长度>>>>', res.total) 
+      order.orderId = `X${this.addZero(res.total)}`
       console.log('order>>>', order)
       // console.log('add的order_massage', order)
       // console.log('game_orders>>>>', res.data.length)
       db.collection('game_orders').add({
         data: order,
-        success: res => {
+        success: () => {
           this.setCustomSelfOrder(order)
           // 新购物车
           const array1 = wx.getStorageSync('userGameCar')

@@ -69,6 +69,8 @@ Page({
 
   // 获取所有订单
   getAllOrders() {
+    let count = 0
+    let allOrds = []
     if (!this.data.hasMoreData) {
       return;
     }
@@ -76,18 +78,29 @@ Page({
       message: '加载中...',
       forbidClick: true,
     });
-    db.collection('game_orders').get()
-      .then(res => {
-        console.log('获取game_orders的数据', res.data)
-        res.data.map(item=>{
-          item.productList.sort(this.compare("_id"))
-        })
-        console.log('lis>>>>', res.data)
-        this.setData({
-          isAll:true,
-          orderList: res?.data?.reverse()
-        })
-      })
+    db.collection('game_orders').count().then(res => {
+      count = Math.ceil(res.total / 20)
+      console.log('count>>>>', count)
+      for (let index = 0; index < count; index++) {
+        db.collection('game_orders').skip(index * 20).get()
+          .then(res => {
+            console.log('获取game_orders的数据', res.data.length)
+            res.data.map(item => {
+              item.productList.sort(this.compare("_id"))
+            })
+            allOrds = allOrds.concat(res?.data)
+            console.log('lis>>>>', allOrds)
+            if (index + 1 === count) {
+              this.setData({
+                isAll: true,
+                orderList: allOrds?.reverse()
+              })
+
+            }
+          })
+      }
+    })
+
   },
 
   //  用户获取自己的订单
@@ -101,7 +114,7 @@ Page({
     //   forbidClick: true,
     // });
     this.setData({
-      orderList: wx.getStorageSync('selfOrders').length > 0 ? wx.getStorageSync('selfOrders')?.reverse() : [] ,
+      orderList: wx.getStorageSync('selfOrders').length > 0 ? wx.getStorageSync('selfOrders')?.reverse() : [],
       isAll: false
     })
     //   db.collection('game_orders').get()
