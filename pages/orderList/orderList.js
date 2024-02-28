@@ -51,7 +51,7 @@ Page({
   },
 
   changeInput(e) {
-    console.log('e', e.detail)
+    // console.log('e', e.detail)
     if (e.detail === "xxsz") {
       this.getAllOrders()
     } else {
@@ -69,8 +69,6 @@ Page({
 
   // 获取所有订单
   getAllOrders() {
-    let count = 0
-    let allOrds = []
     if (!this.data.hasMoreData) {
       return;
     }
@@ -78,24 +76,30 @@ Page({
       message: '加载中...',
       forbidClick: true,
     });
+    let count = 0 // 是20的几倍
+    let allOrds = []
+    let xunhuan = 0 // 循环次数
     db.collection('game_orders').count().then(res => {
       count = Math.ceil(res.total / 20)
-      console.log('count>>>>', count)
+      console.log('总数>>>>', res.total)
+      console.log('循环次数>>>>', count)
       for (let index = 0; index < count; index++) {
+        console.log('index>>>>>>>>', index)
         db.collection('game_orders').skip(index * 20).get()
           .then(res => {
-            console.log('获取game_orders的数据', res.data.length)
+            // console.log('获取game_orders的数据', res.data.length)
             res.data.map(item => {
               item.productList.sort(this.compare("_id"))
             })
+            xunhuan += 1
             allOrds = allOrds.concat(res?.data)
-            console.log('lis>>>>', allOrds)
-            if (index + 1 === count) {
+            console.log('index', index, allOrds)
+            if (xunhuan === count) {
+              console.log('最后存入的list>>>>', allOrds, allOrds?.sort(this.compare("orderId")))
               this.setData({
                 isAll: true,
-                orderList: allOrds?.reverse()
+                orderList: allOrds?.sort(this.compare("orderId")).reverse()//根据生成时间排序
               })
-
             }
           })
       }
@@ -125,7 +129,7 @@ Page({
 
   // 切换标签页点击事件
   onChange(event) {
-    console.log('标签', event)
+    // console.log('标签', event)
     this.setData({
       page: 0,
       tabIndex: event.detail.name,
@@ -154,7 +158,7 @@ Page({
 
   // 打开确认收货面板点击事件
   openReceipt(event) {
-    console.log('获取数据', event)
+    // console.log('获取数据', event)
     let { image, id } = event.currentTarget.dataset
     // let {imageList} = this.data
     this.setData({
@@ -172,7 +176,7 @@ Page({
 
   // 关闭确认收货面板点击事件
   closeReceipt() {
-    console.log('关闭了面板')
+    // console.log('关闭了面板')
     this.setData({
       id: 0,
       showReceipt: false
