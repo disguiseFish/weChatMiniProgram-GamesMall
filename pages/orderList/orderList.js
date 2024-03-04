@@ -61,14 +61,15 @@ Page({
 
   compare(property) {
     return function (a, b) {
-      var value1 = a[property];
-      var value2 = b[property];
+      // console.log('a[property]', a[property], b[property])
+      var value1 = a[property].substring(1);
+      var value2 = b[property].substring(1);
       return value1 - value2;
     }
   },
 
   // 获取所有订单
-  getAllOrders() {
+  async getAllOrders() {
     if (!this.data.hasMoreData) {
       return;
     }
@@ -79,9 +80,10 @@ Page({
     let count = 0 // 是20的几倍
     let allOrds = []
     let xunhuan = 0 // 循环次数
-    db.collection('game_orders').count().then(res => {
-      count = Math.ceil(res.total / 20)
-      console.log('总数>>>>', res.total)
+    // db.collection('game_orders').count().then(res => {
+      let totalRes = await db.collection('game_orders').count()
+      count = Math.ceil(totalRes.total / 20)
+      console.log('总数>>>>', totalRes.total)
       console.log('循环次数>>>>', count)
       for (let index = 0; index < count; index++) {
         console.log('index>>>>>>>>', index)
@@ -93,17 +95,18 @@ Page({
             })
             xunhuan += 1
             allOrds = allOrds.concat(res?.data)
-            console.log('index', index, allOrds)
+            console.log('index_xunhuan', index, xunhuan, allOrds)
             if (xunhuan === count) {
-              console.log('最后存入的list>>>>', allOrds, allOrds?.sort(this.compare("orderId")))
+              const list = allOrds?.sort(this.compare("orderId"))?.reverse()
+              console.log('最后存入的list>>>>', allOrds, list)
               this.setData({
                 isAll: true,
-                orderList: allOrds?.sort(this.compare("orderId")).reverse()//根据生成时间排序
+                orderList: list//根据生成时间排序
               })
             }
           })
       }
-    })
+    // })
 
   },
 
