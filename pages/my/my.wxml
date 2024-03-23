@@ -32,7 +32,7 @@
 <!-- 订单管理 -->
 <view class="order">
   <view class="order-header">
-    <text class="txt">我的订单</text>
+    <text class="txt">我的全部游戏单</text>
     <view class="right" bindtap="pushToOrderList" data-type="0">
       <text class="all">查看全部</text>
       <van-icon name="arrow" />

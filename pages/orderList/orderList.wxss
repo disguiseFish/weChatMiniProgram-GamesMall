@@ -35,10 +35,18 @@ page{
   border-bottom: 1rpx solid #f4f4f4;
   height: 80rpx;
   font-size: 26rpx;
-  color: #555;
+  color: #555555;
 }
 .close-tip{
   color: #ff6700;
+}
+.order-ids{
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  height: 30rpx;
+  border-bottom: 1rpx solid #f4f4f4;
+  background-color: #dbd3d3;
 }
 .order-product{
   display: flex;

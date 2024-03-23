@@ -4,13 +4,13 @@
 </van-cell-group>
 
 <!-- 订单列表 -->
-<scroll-view class="order-container">
+<scroll-view class="order-container"  wx:if="{{!isAll}}" >
   <view class="order-item" wx:for="{{orderList}}" wx:key="index" bindtap="pushToOrderDetail" data-id="{{item.orderId}}">
     <view class="order-header">
       <view bindtap="copyOrder" data-id="{{item.orderId}}">游戏清单编号: {{item.orderId}}（点我复制清单编号）</view>
     </view>
     <view class="order-product" wx:for="{{item.productList}}" wx:for-item="product" wx:key="index">
-      <image class="order-image" src="{{product.url}}"></image>
+       <image wx:if="{{product.url}}" class="order-image" src="{{product.url}}"></image> 
       <!-- <van-image class="game_image" width="7.5rem" height="5rem" fit="cover" src="{{ product.url }}" /> -->
       <view class="order-info">
         <text class="order-title">{{product.name}}</text>
@@ -37,6 +37,31 @@
       <view wx:if="{{item.state == 5}}" class="close-tip">交易关闭</view> -->
     </view>
      <view wx:if="{{isAll}}" >备注：{{item.message}}</view>
+  </view>
+</scroll-view>
+
+<scroll-view class="order-container"  wx:if="{{isAll}}" >
+  <view class="order-item" wx:for="{{orderList}}" wx:key="index" bindtap="pushToOrderDetail" data-id="{{item.orderId}}">
+    <view class="order-header">
+      <view bindtap="copyOrder" data-id="{{item.orderId}}">游戏清单编号: {{item.orderId}}（点我复制清单编号）</view>
+    </view>
+    <view class="order-ids" wx:for="{{item.productList}}" wx:for-item="product" wx:key="index">
+       <!-- <image wx:if="{{product.url}}" class="order-image" src="{{product.url}}"></image>  -->
+        <text class="order-title">{{product._id}}-{{product.name}}</text>
+      <!-- <view class="order-info"> -->
+        <!-- <text wx:if="{{isAll}}" class="order-desc">{{product._id}}</text>
+        <text wx:else class="order-desc">-----</text> -->
+      <!-- </view> -->
+      <!-- <view class="order-status"> -->
+        <!-- <text class="order-package">x{{product.number}}</text> -->
+        <!-- <text class="order-package">{{product.size}}GB</text> -->
+      <!-- </view> -->
+    </view>
+       <!-- <view class="order-header">
+      <view>{{item.created}}</view>
+      <view>包含 {{item.productList.length}} 款游戏，总容量:{{item.totalVolum}}GB</view>
+    </view> -->
+     <view>备注：{{item.message}}</view>
   </view>
 </scroll-view>
 

@@ -234,15 +234,19 @@ Page({
   addZero(num) {
     var digit = num.toString().length; // 获取数字的位数
     console.log('获取数字的位数', digit, num)
-    
+
     if (digit === 1) {
-        return "000" + num; // 如果只有一位数，则在前面添加一个 0
-    } else if (digit > 1 && digit < 5) {
-        return num.toLocaleString('en-US', {minimumIntegerDigits: digit}); // 其他情况下直接返回原始数值并保持不变
+      return "000" + num; // 如果只有一位数，则在前面添加一个 0
+    } else if (digit === 2) {
+      return "00" + num;
+    } else if (digit === 3) {
+      return "0" + num;
+    } else if (digit === 4) {
+      return num;
     } else {
-        throw new Error("Invalid input"); // 输入无效时抛出错误
+      throw new Error("Invalid input"); // 输入无效时抛出错误
     }
-},
+  },
 
   // 完成支付点击事件
   clickComfire() {
@@ -253,7 +257,7 @@ Page({
     // })
     db.collection('game_orders').count().then(res => {
       // 这里拿到的res.data就不是全部的数据
-      console.log('生成订单长度>>>>', res.total) 
+      console.log('生成订单长度>>>>', res.total)
       order.orderId = `X${this.addZero(res.total)}`
       console.log('order>>>', order)
       // console.log('add的order_massage', order)

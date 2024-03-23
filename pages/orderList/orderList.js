@@ -81,33 +81,39 @@ Page({
     let allOrds = []
     let xunhuan = 0 // 循环次数
     // db.collection('game_orders').count().then(res => {
-      let totalRes = await db.collection('game_orders').count()
-      count = Math.ceil(totalRes.total / 20)
-      console.log('总数>>>>', totalRes.total)
-      console.log('循环次数>>>>', count)
-      for (let index = 0; index < count; index++) {
-        console.log('index>>>>>>>>', index)
-        db.collection('game_orders').skip(index * 20).get()
-          .then(res => {
-            // console.log('获取game_orders的数据', res.data.length)
-            res.data.map(item => {
-              item.productList.sort(this.compare("_id"))
-            })
-            xunhuan += 1
-            allOrds = allOrds.concat(res?.data)
-            console.log('index_xunhuan', index, xunhuan, allOrds)
-            if (xunhuan === count) {
-              const list = allOrds?.sort(this.compare("orderId"))?.reverse()
-              console.log('最后存入的list>>>>', allOrds, list)
-              this.setData({
-                isAll: true,
-                orderList: list//根据生成时间排序
-              })
-            }
-          })
-      }
+    let totalRes = await db.collection('game_orders').count()
+    count = Math.ceil(totalRes.total / 20)
+    console.log('总数>>>>', totalRes.total)
+    console.log('循环次数>>>>', Math.ceil(totalRes.total / 50))
+    // db.collection('game_orders').skip(4 * 30).get().then(res => {
+    //   console.log('res.data>>>>', res.data)
+    //   this.setData({
+    //     isAll: true,
+    //     orderList: res.data.sort(this.compare("orderId"))?.reverse()//根据生成时间排序
+    //   })
     // })
-
+    for (let index = 0; index < count; index++) {
+      console.log('index>>>>>>>>', index)
+      db.collection('game_orders').skip(index * 20).get()
+        .then(res => {
+          // console.log('获取game_orders的数据', res.data.length)
+          res.data.map(item => {
+            item.productList.sort(this.compare("_id"))
+          })
+          xunhuan += 1
+          // allOrds= res?.data
+          allOrds = allOrds.concat(res?.data) // 数组累加
+          console.log('index_xunhuan', index, xunhuan, allOrds)
+          if (xunhuan === count) {
+            const list = allOrds?.sort(this.compare("orderId"))?.reverse()
+            console.log('最后存入的list>>>>', allOrds, list)
+            this.setData({
+              isAll: true,
+              orderList: list//根据生成时间排序
+            })
+          }
+        })
+    }
   },
 
   //  用户获取自己的订单
